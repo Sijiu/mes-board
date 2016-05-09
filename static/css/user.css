@@ -1,0 +1,13 @@
+
+.pull-left{
+
+}
+
+.user-list {
+    margin-bottom: 10px;
+    margin-top: 20px;
+    background: #F7F7F7 none repeat scroll 0% 0%;
+    box-shadow: 2px 2px 3px #AAA;
+    border-radius: 5px;
+    padding: 10px;
+}
