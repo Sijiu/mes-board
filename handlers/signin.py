@@ -3,7 +3,8 @@
 import hashlib
 
 import tornado.web
-from base import BaseHandler
+
+from handlers.lib.base import BaseHandler
 class SigninHandler(BaseHandler):
     def get(self):
         if self.get_current_user():

@@ -3,7 +3,8 @@
 import hashlib
 
 import tornado.web
-from base import BaseHandler
+
+from handlers.lib.base import BaseHandler
 
 
 class SignupHandler(BaseHandler):

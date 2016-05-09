@@ -24,13 +24,13 @@ define('port', default=9800, help='run tornado app on the given port', type=int)
 class App(tornado.web.Application):
     def __init__(self):
         settings = dict(
-            static_path = os.path.join(os.path.dirname(__file__), "static"),
-            template_path = os.path.join(os.path.dirname(__file__), "templates"),
-            cookie_secret = "ajkfdlkfkdsofidsofjohsdk;eoport",
-            autoescape = None,
-            xsrf_cookies = True,
-            debug = True,
-            login_url = "/signin",
+            static_path=os.path.join(os.path.dirname(__file__), "static"),
+            template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            cookie_secret="ajkfdlkfkdsofidsofjohsdk;eoport",
+            autoescape=None,
+            xsrf_cookies=True,
+            debug=True,
+            login_url="/signin",
         )
         super(App, self).__init__(handlers, **settings)
         self.db = pymongo.Connection('localhost', 27017)['MsgBoard']

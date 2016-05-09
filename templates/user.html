@@ -1,26 +1,18 @@
 {% extends 'layout/layout.html' %}
-  {% block title %}
+    {% block title %}
     {{ account['username'] }}的个人主页 | 留言板
-  {% end %}
-{% block css %}
-  <style>
-    .user-list {
-      margin-bottom: 10px;
-      margin-top: 20px;
-      background: #F7F7F7 none repeat scroll 0% 0%;
-      box-shadow: 2px 2px 3px #AAA;
-      border-radius: 5px;
-      padding: 10px;
-    }
-  </style>
-{% end %}
+    {% end %}
+    {% block css %}
+    <link href="{{ static_url("css/user.css") }}" rel="stylesheet">
+    {% end %}
 {% block content %}
 <div class="am-g am-container">
   <div class="am-u-lg-12">
     <div class="user-list">
       <span>昵称:{{ account['username' ] }}</span>
       <br>
-      <span>头像:{{ account['username' ] }}</span>
+      <span>头像:</span><img class="image" src="{{ account.get('PictureURLs', '/static/images/demo.png') }}" draggable="false"/>
+        <div id="upload" style="width: 110px;" class="pull-left"></div>
       <br>
       <span>Blog:{{ account['blog' ] }}</span>
     </div>
@@ -30,4 +22,8 @@
   <p>Create By <a href="http://sukai.me/" target="_blank">SuKai</a>, Using Tornado&&AmazeUI.</p>
 </footer>
 -->
+{% end %}
+{% block javascript %}
+<script src="{{ static_url("js/Huploadify.js") }}"></script>
+<script src="{{ static_url("js/picture.js") }}"></script>
 {% end %}

@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import tornado.web
-from base import BaseHandler
+
+from handlers.lib.base import BaseHandler
 
 
 class UserHandler(BaseHandler):
