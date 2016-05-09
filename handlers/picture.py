@@ -4,6 +4,9 @@
 from handlers.lib.base import BaseHandler
 from PIL import Image
 
+from handlers.lib.sever_pic import server_fs
+
+
 class PictureHandler(BaseHandler):
     def get(self, *args, **kwargs):
         pass
@@ -50,10 +53,28 @@ class PictureHandler(BaseHandler):
                 error += 1
         render_settings = dict()
         render_settings["status"] = 1
-        render_settings.update(self.picture_by_page(username, 0, ""))
+        render_settings["picture"] = server_fs.find(username=username)
+        # render_settings.update(self.picture_by_page(username, 0, ""))
         return {
             "render_settings": render_settings,
             "success": success,
             "error": error,
             "url": ";".join(urls)
         }
+
+    def extract_display_info(self, user_name, pictures):
+        results = list()
+        protocol = "http"
+        for picture in pictures:
+            i = dict(
+                Link="%s://%s/image/%s/%s.%s" % (
+                    protocol, self.request.host, user_name,
+                    str(picture["_id"]), "jpg"
+                ),
+                Name=picture["filename"],
+                Id=str(picture["_id"]),
+                Size=picture["size"],
+                Length="%.1fK" % (picture["length"]/1024.0)
+            )
+            results.append(i)
+        return results
