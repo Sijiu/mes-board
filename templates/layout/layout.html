@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>
+    {% block title %}{% end %} | 留言板
+  </title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.4.2/css/amazeui.min.css"/>
+    <link href="{{ static_url("css/app.css") }}" rel="stylesheet">
+    {% block css %}
+    {% end %}
+</head>
+<body>
+{% include header.html %}
+
+{% set messages = handler.get_message() %}
+{% if messages %}
+<div class="am-g am-container">
+  <div class="am-u-lg-12">
+    <div class="am-alert am-alert-danger" data-am-alert>
+    {% for message in messages %}
+    <center>{{ message }}</center>
+    {% end %}
+    </div>
+  </div>
+</div>
+{% end %}
+<div class="content">
+{% block content %}
+{% end %}
+</div>
+{% include footer.html %}
+<script src="{{ static_url('js/jquery.min.js') }}"></script>
+<script src="http://cdn.amazeui.org/amazeui/2.4.2/js/amazeui.min.js"></script>
+<script src="{{ static_url('js/app.js') }}"></script>
+
+{% block javascript %}
+{% end %}
+</body>
+</html>
