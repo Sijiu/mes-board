@@ -115,3 +115,14 @@ img.avatar {
   border-radius: 5px;
   padding: 5px;
 }
+
+.footer{
+  background: rgba(101, 172, 239, 0.56);
+  color: rgba(10, 42, 119, 0.51);
+  text-align: center;
+  padding: 10px 0;
+}
+
+.content {
+  min-height: 960px;
+}
