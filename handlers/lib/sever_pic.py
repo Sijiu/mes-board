@@ -4,6 +4,7 @@ import random
 from string import lowercase, digits
 import pymongo
 from PIL import Image
+from bson import ObjectId
 from gridfs import GridFS
 
 conn = pymongo.MongoClient(host="localhost", port=27017)
@@ -36,7 +37,6 @@ class SeverFS(object):
         im_fd.close()
         return file_id
 
-
     @staticmethod
     def gen_pic_name(length=8):
         chars = lowercase + digits
@@ -45,10 +45,20 @@ class SeverFS(object):
 
     def find(self, skip=0, limit=0, **kwargs):
         if limit:
-            ps = self.conn.find(kwargs).skip(skip).limit(limit).sort("uploadDate", pymongo.DESCENDING)
+            # ps = self.conn.find(kwargs).skip(skip).limit(limit).sort("uploadDate", pymongo.DESCENDING)
+            ps = self.conn.find(kwargs).skip(skip).limit(limit)
             return ps
         else:
-            return self.conn.find(kwargs).skip(skip).sort("uploadDate", pymongo.DESCENDING)
+            # return self.conn.find(kwargs).skip(skip).sort("uploadDate", pymongo.DESCENDING)
+            return self.conn.find(kwargs).skip(skip)
+
+    def get(self, file_id):
+        return self.gfs.get(ObjectId(file_id))
+
+    def get_count(self, **kwargs):
+        return self.gfs.find(kwargs).count()
+
 
 server_fs = SeverFS()
-
+# print server_fs.get_count()
+# print server_fs.find(**{"username": "hello"})
