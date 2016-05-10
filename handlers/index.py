@@ -7,6 +7,7 @@ import pymongo
 import tornado.web
 
 from handlers.lib.base import BaseHandler
+from handlers.lib.image import ImageHandler
 from handlers.picture import PictureHandler
 from signin import SigninHandler
 from signup import SignoutHandler, SignupHandler, AboutHandler
@@ -62,4 +63,5 @@ handlers = [
     (r"/about", AboutHandler),
     (r"/user/(\w+)", UserHandler),
     (r"/picture/([\w/]+)", PictureHandler),
+    (r"/image/(\w+)/([\w+\.]+)", ImageHandler),
 ]

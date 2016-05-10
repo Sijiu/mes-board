@@ -11,8 +11,11 @@
     <div class="user-list">
       <span>昵称:{{ account['username' ] }}</span>
       <br>
-      <span>头像:</span><img class="image" src="{{ account.get('PictureURLs', '/static/images/demo.png') }}" draggable="false"/>
+      <span>头像:</span>
+        <img class="square-image" src="{{ account.get('user_photo', '/static/images/demo.png') }}" >
+        <img class="circle-image" src="{{ account.get('user_photo', '/static/images/demo.png') }}" >
         <div id="upload" style="width: 110px;" class="pull-left"></div>
+        <div id="img"><img class="image" src="/static/images/add.png"></div>
       <br>
       <span>Blog:{{ account['blog' ] }}</span>
     </div>

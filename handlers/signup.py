@@ -39,7 +39,7 @@ class SignupHandler(BaseHandler):
             'username': username.lower(),
             'password': password,
             'token': token,
-            'blog': blog
+            'blog': blog,
         })
         self.set_secure_cookie('token', token, expires_days=30)
         self.redirect(self.get_argument('next', '/'))

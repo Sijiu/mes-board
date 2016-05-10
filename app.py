@@ -28,7 +28,7 @@ class App(tornado.web.Application):
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             cookie_secret="ajkfdlkfkdsofidsofjohsdk;eoport",
             autoescape=None,
-            xsrf_cookies=True,
+            xsrf_cookies=False,
             debug=True,
             login_url="/signin",
         )
