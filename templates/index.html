@@ -21,14 +21,15 @@
       {% for reply in replies[(p-1)*replies_per_page : p*replies_per_page] %}
       <div class="msg-list">
         <div class="list-img">
-          <a href="/member/sukai" class="head-pic">
-            <img class="avatar" src="http://cdn.v2ex.co/gravatar/399c30dbf7e89e8f81b412b1034c57d0?s=48&d=retro">
+{#          <a href="/member/sukai" class="head-pic">#}
+            <a href="/user/{{ reply['author'] }}" class="head-pic">
+            <img class="avatar" src="{{ reply.get('author_photo', '/static/images/demo.png') }}">
           </a>
         </div>
 
         <div class="list-message">
           <div class="list-headers">
-            <a href="/user/sukai" class="list-usernmae">{{ reply['author'] }}</a>
+            <a href="/user/{{ reply['author'] }}" class="list-usernmae">{{ reply['author'] }}</a>
             <span class="list-ip"> | IP:{{ reply['ip'] }}</span>
             <span class="am-badge am-round">{{ reply['index'] }}</span>
           </div>
@@ -71,7 +72,7 @@
         <form method="post" class="am-form">
           <fieldset>
             <div class="am-form-group">
-              <p class="about-color">{{ handler.current_user["username"] }}，你好！欢迎留言</p>
+              <p class="about-color" id="editor">{{ handler.current_user["username"] }}，你好！欢迎留言</p>
               <textarea class="reply-text" rows="5" id="board-text" name="content"></textarea>
             </div>
             <input type="submit" class="am-btn am-btn-success" value="发表">
@@ -84,4 +85,20 @@
   {% end %}
 
 </div>
+{% end %}
+{% block javascript %}
+<script src="{{ static_url("js/kindeditor/kindeditor.js") }}"></script>
+<script src="{{ static_url("js/kindeditor/kindeditorEdit.js") }}"></script>
+<script src="{{ static_url("js/kindeditor/plugins/multiimage/multiimage.js") }}"></script>
+<script src="{{ static_url("js/kindeditor/lang/zh_CN.js") }}"></script>
+<script type="text/javascript">
+    //加载富文本编辑器
+    KindEditor.ready(function (K) {
+        window.editor = K.create('#board-text', options);
+//        var detail = $("#detailHtml").text();
+//        $("#detailHtml").empty();
+//        editor.insertHtml(detail);
+    });
+{#    var listing_duration_map = {% raw durations_all %};#}
+</script>
 {% end %}
