@@ -34,12 +34,14 @@ class IndexHandler(BaseHandler):
         p = int(self.get_argument('p', 1))
         cur_time = time.strftime(ISOTIMEFORMAT, time.localtime(time.time()))
         author = self.get_current_user()["username"]
+        author_photo = self.get_current_user()["user_photo"]
         ip = self.request.remote_ip
         content_html = self.make_html(content)
         index = self.db.boards.find().count()
         # print content, cur_time, author, ip, content_html, index
         yield self.asyn_db.boards.insert({
             'author': author,
+            'author_photo': author_photo,
             'content': content,
             'reply_time': cur_time,
             'ip': ip,

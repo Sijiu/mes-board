@@ -80,12 +80,11 @@ color: #34495e;
 }
 
 img.avatar {
-  border-radius: 4px;
-  float: left;
-  margin-top: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 10px;
+    border-radius: 25px;
+    float: left;
+    margin: 0px 10px 10px 10px;
+    height: 50px;
+    width: 50px;
 }
 
 .list-username {
@@ -126,6 +125,11 @@ img.avatar {
   color: rgba(10, 42, 119, 0.51);
   text-align: center;
   padding: 10px 0;
+  margin-top: 20px;
+}
+
+.footer .count{
+  margin-left: 20px;
 }
 
 .content {
