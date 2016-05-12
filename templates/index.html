@@ -17,7 +17,7 @@
   <div class="am-g am-container">
     <div class="am-u-lg-12">
     {% if replies %}
-      {% set replies_per_page = 5 %}
+      {% set replies_per_page = 9 %}
       {% for reply in replies[(p-1)*replies_per_page : p*replies_per_page] %}
       <div class="msg-list">
         <div class="list-img">
@@ -69,13 +69,13 @@
   <div class="am-g am-container">
     <div class="am-u-lg-12">
       <div class="board-block">
-        <form method="post" class="am-form">
+        <form id="form_answer" method="post" class="am-form">
           <fieldset>
             <div class="am-form-group">
               <p class="about-color" id="editor">{{ handler.current_user["username"] }}，你好！欢迎留言</p>
               <textarea class="reply-text" rows="5" id="board-text" name="content"></textarea>
             </div>
-            <input type="submit" class="am-btn am-btn-success" value="发表">
+            <input type="submit" class="am-btn am-btn-success" id="FormSubmitButton" value="发表"><span id="form-msg" style="display:none;"></span>
           </fieldset>
 {#        {% raw xsrf_form_html() %}#}
         </form>
@@ -91,6 +91,7 @@
 <script src="{{ static_url("js/kindeditor/kindeditorEdit.js") }}"></script>
 <script src="{{ static_url("js/kindeditor/plugins/multiimage/multiimage.js") }}"></script>
 <script src="{{ static_url("js/kindeditor/lang/zh_CN.js") }}"></script>
+<script src="{{ static_url("js/jquery.form.js") }}"></script>
 <script type="text/javascript">
     //加载富文本编辑器
     KindEditor.ready(function (K) {
@@ -100,5 +101,33 @@
 //        editor.insertHtml(detail);
     });
 {#    var listing_duration_map = {% raw durations_all %};#}
+    var form_msg = $("#form-msg");
+    $('#form_answer').ajaxForm({
+                    dataType: 'json',
+                    beforeSerialize: function ($form, options) {
+                        editor.sync();
+                    },
+                    beforeSubmit: function () {
+                        $('#FormSubmitButton').attr('disabled', 'disabled');
+                        form_msg.html("<span class='ajax_processing'>正在提交留言，请稍候...</span>");
+                        form_msg.show();
+                    },
+                    success: function (json) {
+                        $('#FormSubmitButton').removeAttr('disabled');
+                        if (json.msg) {
+                            form_msg.html("<span class='error_msg'>" + json.msg + "</span>");
+                            form_msg.show();
+                        }
+                        else if (json.success) {
+{#                            ajax_get("/question/show_answer?_answer_id=" + json.id, true, function (data) {#}
+{#                                                                    $('.QuestionReplies ul.list').append(data);#}
+{#                                                                editor.html('');#}
+{#                                $('.answer_count').html(json.answer_count);#}
+{#                            });#}
+                            ajax_get("/");
+                            $('#form_msg').hide();
+                        }
+                    }
+                });
 </script>
 {% end %}

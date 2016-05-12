@@ -49,12 +49,17 @@ class IndexHandler(BaseHandler):
             'content_html': content_html,
         })
         replies = self.db.boards.find().sort('reply_time', pymongo.DESCENDING)
+
         self.render(
             'index.html',
             replies=replies,
             replies_count=index + 1,
             p=p,
+            json={
+                "success": "1"
+            },
         )
+
 
 
 handlers = [
