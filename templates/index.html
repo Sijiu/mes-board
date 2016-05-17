@@ -48,13 +48,13 @@
 
 
     {% if p>1 %}
-    <a href="/?p={{ p-1 }}"><button type="button" class="am-btn am-btn-primary am-radius">上一页</button></a>
+    <a href="/msg?p={{ p-1 }}"><button type="button" class="am-btn am-btn-primary am-radius">上一页</button></a>
     {% else %}
     <a href="javascript:void(0)"><button type="button" class="am-btn am-btn-primary am-radius" disabled="disabled">上一页</button></a>
     {% end %}
     {% if p*replies_per_page < replies_count %}
     <div style="float:right">
-    <a href="/?p={{ p+1 }}"><button type="button" class="am-btn am-btn-primary am-radius">下一页</button></a>
+    <a href="/msg?p={{ p+1 }}"><button type="button" class="am-btn am-btn-primary am-radius">下一页</button></a>
     </div>
     {% else %}
     <div style="float:right">
@@ -124,7 +124,7 @@
 {#                                                                editor.html('');#}
 {#                                $('.answer_count').html(json.answer_count);#}
 {#                            });#}
-                            ajax_get("/");
+                            ajax_get("/msg");
                             $('#form_msg').hide();
                         }
                     }

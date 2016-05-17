@@ -63,7 +63,7 @@ class IndexHandler(BaseHandler):
 
 
 handlers = [
-    (r"/", IndexHandler),
+    (r"/msg", IndexHandler),
     (r"/signup", SignupHandler),
     (r"/signin", SigninHandler),
     (r"/signout", SignoutHandler),
