@@ -17,16 +17,18 @@ ISOTIMEFORMAT = '%Y-%m-%d %X'
 
 
 class IndexHandler(BaseHandler):
-    def get(self):
-        replies = self.db.boards.find().sort('reply_time', pymongo.DESCENDING)
-        replies_count = self.db.boards.find().count()
-        p = int(self.get_argument('p', 1))
-        self.render(
-            'index.html',
-            replies=replies,
-            replies_count=replies_count,
-            p=p,
-        )
+    def get(self, *args):
+        method_route ={
+            "display": self.display_handler,
+            "del": self.del_msg_handler
+        }
+        category = args[0]
+        print "sss-", args[0]
+        try:
+            result = method_route[category]
+            self.write(result)
+        except Exception, e:
+            self.write({"status": 0, "message": "something is error"})
 
     @tornado.gen.coroutine
     def post(self):
@@ -49,7 +51,7 @@ class IndexHandler(BaseHandler):
             'content_html': content_html,
         })
         replies = self.db.boards.find().sort('reply_time', pymongo.DESCENDING)
-
+        print "*****", replies
         self.render(
             'index.html',
             replies=replies,
@@ -60,10 +62,25 @@ class IndexHandler(BaseHandler):
             },
         )
 
+    def display_handler(self):
+        print "shit"
+        replies = self.db.boards.find().sort('reply_time', pymongo.DESCENDING)
+        replies_count = self.db.boards.find().count()
+        p = int(self.get_argument('p', 1))
+        page = 'index.html'
+        render_setting = {
+            'replies': replies,
+            'replies_count': replies_count,
+            'p': p,
+        }
+        return page, render_setting
+
+    def del_msg_handler(self):
+        pass
 
 
 handlers = [
-    (r"/msg", IndexHandler),
+    (r"/msg/(.*)", IndexHandler),
     (r"/signup", SignupHandler),
     (r"/signin", SigninHandler),
     (r"/signout", SignoutHandler),

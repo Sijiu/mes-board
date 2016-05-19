@@ -40,6 +40,7 @@
             <span class="message-time">{{ reply['reply_time'] }}</span>
             {% set toUser = reply['author'] %}
             <a onclick="my_function('{{ toUser }}')" href="javascript:void(0)"><span class="am-badge am-badge-success am-round">回复作者</span></a>
+              <a onclick="del_msg('{{ toUser }}')" href="javascript:void(0)"><span class="am-badge am-badge-failed am-round">删除</span></a>
           </div>
         </div>
       </div>
@@ -101,33 +102,33 @@
 //        editor.insertHtml(detail);
     });
 {#    var listing_duration_map = {% raw durations_all %};#}
-    var form_msg = $("#form-msg");
-    $('#form_answer').ajaxForm({
-                    dataType: 'json',
-                    beforeSerialize: function ($form, options) {
-                        editor.sync();
-                    },
-                    beforeSubmit: function () {
-                        $('#FormSubmitButton').attr('disabled', 'disabled');
-                        form_msg.html("<span class='ajax_processing'>正在提交留言，请稍候...</span>");
-                        form_msg.show();
-                    },
-                    success: function (json) {
-                        $('#FormSubmitButton').removeAttr('disabled');
-                        if (json.msg) {
-                            form_msg.html("<span class='error_msg'>" + json.msg + "</span>");
-                            form_msg.show();
-                        }
-                        else if (json.success) {
+{#    var form_msg = $("#form-msg");#}
+{#    $('#form_answer').ajaxForm({#}
+{#                    dataType: 'json',#}
+{#                    beforeSerialize: function ($form, options) {#}
+{#                        editor.sync();#}
+{#                    },#}
+{#                    beforeSubmit: function () {#}
+{#                        $('#FormSubmitButton').attr('disabled', 'disabled');#}
+{#                        form_msg.html("<span class='ajax_processing'>正在提交留言，请稍候...</span>");#}
+{#                        form_msg.show();#}
+{#                    },#}
+{#                    success: function (json) {#}
+{#                        $('#FormSubmitButton').removeAttr('disabled');#}
+{#                        if (json.msg) {#}
+{#                            form_msg.html("<span class='error_msg'>" + json.msg + "</span>");#}
+{#                            form_msg.show();#}
+{#                        }#}
+{#                        else if (json.success) {#}
 {#                            ajax_get("/question/show_answer?_answer_id=" + json.id, true, function (data) {#}
 {#                                                                    $('.QuestionReplies ul.list').append(data);#}
 {#                                                                editor.html('');#}
 {#                                $('.answer_count').html(json.answer_count);#}
 {#                            });#}
-                            ajax_get("/msg");
-                            $('#form_msg').hide();
-                        }
-                    }
-                });
+{#                            ajax_get("/msg");#}
+{#                            $('#form_msg').hide();#}
+{#                        }#}
+{#                    }#}
+{#                });#}
 </script>
 {% end %}

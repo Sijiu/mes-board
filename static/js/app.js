@@ -16,3 +16,6 @@ function my_function(toUser) {
     //content.val(newContent);
     editor.insertHtml(newContent);
 }
+function del_msg(){
+
+}
